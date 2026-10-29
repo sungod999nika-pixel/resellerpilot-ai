@@ -127,4 +127,429 @@
           <button type="submit" id="btnDesc" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">Generate Description</button>
         </form>
       </div>
-      <div id="descCard" class="hidden bg-white rou
+      <div id="descCard" class="hidden bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between"><span class="text-xs font-bold uppercase text-emerald-800">Generated Description</span><button onclick="copyText('descOut')" class="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg">Copy</button></div>
+        <div id="descOut" class="text-sm whitespace-pre-wrap bg-slate-50 p-3 rounded-lg border border-slate-200 font-sans"></div>
+      </div>
+    </section>
+
+    <!-- 3. Customer Reply Assistant -->
+    <section id="feature-reply" class="tab-content space-y-4">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <h2 class="text-base font-bold text-slate-900">3. Customer Reply Assistant</h2>
+        <div class="space-y-3 mt-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Objection Scenario</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" onclick="setScen('discount')" id="scen-discount" class="scen-btn p-2 rounded-lg border-2 border-blue-600 bg-blue-50 text-xs font-bold text-blue-900">Asking for Discount</button>
+              <button type="button" onclick="setScen('followup')" id="scen-followup" class="scen-btn p-2 rounded-lg border-2 border-slate-200 bg-white text-xs font-bold text-slate-700">Follow Up / Ghosted</button>
+              <button type="button" onclick="setScen('trust')" id="scen-trust" class="scen-btn p-2 rounded-lg border-2 border-slate-200 bg-white text-xs font-bold text-slate-700">"Is It Authentic?"</button>
+              <button type="button" onclick="setScen('expensive')" id="scen-expensive" class="scen-btn p-2 rounded-lg border-2 border-slate-200 bg-white text-xs font-bold text-slate-700">"Too Expensive"</button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Product *</label><input type="text" id="replyProd" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="e.g. Leather Loafers" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Perk / Bonus</label><input type="text" id="replyBonus" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="e.g. Free express delivery" /></div>
+          </div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Customer's Exact Message</label><textarea id="replyMsg" rows="2" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="e.g. 'Can you reduce the price to 12k?'"></textarea></div>
+          <div id="replyError" class="hidden p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium"></div>
+          <button type="button" onclick="handleReply();" id="btnReply" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">Generate Persuasive Reply</button>
+        </div>
+      </div>
+      <div id="replyCard" class="hidden bg-white rounded-2xl p-5 border border-purple-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between"><span class="text-xs font-bold uppercase text-purple-800" id="replyTag">Customer Script</span><button onclick="copyText('replyOut')" class="text-xs font-semibold px-2.5 py-1 bg-purple-50 text-purple-700 rounded-lg">Copy</button></div>
+        <div id="replyOut" class="text-sm whitespace-pre-wrap bg-slate-50 p-3 rounded-lg border border-slate-200 font-sans"></div>
+      </div>
+    </section>
+
+    <!-- 4. Offline Profit Calculator (100% Offline) -->
+    <section id="feature-calc" class="tab-content space-y-4">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-base font-bold text-slate-900">4. Offline Profit Calculator</h2>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">100% Offline Active</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Product Cost (<span class="curr">₦</span>)</label><input type="number" id="calcCost" oninput="calculateProfit('cost')" min="0" step="any" placeholder="5000" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" /></div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Waybill Fee (<span class="curr">₦</span>)</label><input type="number" id="calcWaybill" oninput="calculateProfit('cost')" min="0" step="any" placeholder="1500" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" /></div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Packaging (<span class="curr">₦</span>)</label><input type="number" id="calcPack" oninput="calculateProfit('cost')" min="0" step="any" placeholder="500" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" /></div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ad Cost / CPA (<span class="curr">₦</span>)</label><input type="number" id="calcAd" oninput="calculateProfit('cost')" min="0" step="any" placeholder="1200" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" /></div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gateway Fee (%)</label><input type="number" id="calcFee" oninput="calculateProfit('cost')" min="0" max="50" step="any" value="2.0" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" /></div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Desired Profit (<span class="curr">₦</span>)</label><input type="number" id="calcProfit" oninput="calculateProfit('cost')" min="0" step="any" placeholder="4000" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" /></div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
+          <div class="p-2 bg-slate-50 border rounded-xl"><span class="text-[10px] font-bold text-slate-500 uppercase block">Total Cost</span><div class="text-sm font-bold" id="resTotal">0.00</div></div>
+          <div class="p-2 bg-blue-50 border border-blue-200 rounded-xl"><span class="text-[10px] font-bold text-blue-700 uppercase block">Suggested Price</span><div class="text-sm font-bold text-blue-700" id="resPrice">0.00</div></div>
+          <div class="p-2 bg-emerald-50 border border-emerald-200 rounded-xl"><span class="text-[10px] font-bold text-emerald-700 uppercase block">Net Profit</span><div class="text-sm font-bold text-emerald-700" id="resNet">0.00</div></div>
+          <div class="p-2 bg-slate-50 border rounded-xl"><span class="text-[10px] font-bold text-slate-500 uppercase block">Margin</span><div class="text-sm font-bold" id="resMargin">0%</div></div>
+        </div>
+        <div class="mt-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div class="flex items-center gap-2">
+            <input type="number" id="calcCustomPrice" oninput="calculateProfit('custom')" placeholder="Override price live..." class="flex-1 px-3 py-1.5 rounded-lg border border-slate-300 text-xs outline-none bg-white" />
+            <button onclick="resetCalculator()" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold">Reset</button>
+          </div>
+          <p id="profitVerdict" class="text-xs mt-2 font-medium"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Social Media Content Generator -->
+    <section id="feature-social" class="tab-content space-y-4">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <h2 class="text-base font-bold text-slate-900">5. Social Media Content Generator</h2>
+        <form onsubmit="event.preventDefault(); handleSocial();" class="space-y-3 mt-3">
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Product *</label><input type="text" id="socialProd" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="e.g. Portable Blender" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Goal</label><select id="socialGoal" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white outline-none"><option>Direct Orders</option><option>Viral Engagement</option><option>Product Demo</option><option>Flash Sale</option></select></div>
+          </div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Angle / Target Persona</label><input type="text" id="socialAngle" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="e.g. Fitness lovers on the go" /></div>
+          <div id="socialError" class="hidden p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium"></div>
+          <button type="submit" id="btnSocial" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">Generate Social Media Pack</button>
+        </form>
+      </div>
+      <div id="socialCard" class="hidden bg-white rounded-2xl p-5 border border-rose-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between"><span class="text-xs font-bold uppercase text-rose-800">Social Pack</span><button onclick="copyText('socialOut')" class="text-xs font-semibold px-2.5 py-1 bg-rose-50 text-rose-700 rounded-lg">Copy</button></div>
+        <div id="socialOut" class="text-sm whitespace-pre-wrap bg-slate-50 p-3 rounded-lg border border-slate-200 font-sans"></div>
+      </div>
+    </section>
+
+    <!-- 6. Product Promotion Planner -->
+    <section id="feature-promo" class="tab-content space-y-4">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <h2 class="text-base font-bold text-slate-900">6. Product Promotion Planner</h2>
+        <form onsubmit="event.preventDefault(); handlePromo();" class="space-y-3 mt-3">
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Product *</label><input type="text" id="promoProd" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="e.g. Wireless Earbuds" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Promo Type</label><select id="promoType" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm bg-white outline-none"><option>48-Hour Weekend Flash Sale</option><option>Payday Special</option><option>Buy 1 Get 1 Free (BOGO)</option><option>Stock Clearance</option></select></div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Normal Price (<span class="curr">₦</span>)</label><input type="number" id="promoNormPrice" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="25000" /></div>
+            <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Deal Price (<span class="curr">₦</span>) *</label><input type="number" id="promoDealPrice" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="19500" /></div>
+          </div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Special Freebie / Perk</label><input type="text" id="promoPerk" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm outline-none" placeholder="e.g. Free case + express delivery" /></div>
+          <div id="promoError" class="hidden p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium"></div>
+          <button type="submit" id="btnPromo" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">Generate Campaign Plan</button>
+        </form>
+      </div>
+      <div id="promoCard" class="hidden bg-white rounded-2xl p-5 border border-sky-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between"><span class="text-xs font-bold uppercase text-sky-800">3-Phase Roadmap</span><button onclick="copyText('promoOut')" class="text-xs font-semibold px-2.5 py-1 bg-sky-50 text-sky-700 rounded-lg">Copy</button></div>
+        <div id="promoOut" class="text-sm whitespace-pre-wrap bg-slate-50 p-3 rounded-lg border border-slate-200 font-sans"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+    let currentCurrency = '₦';
+    let currentScenario = 'discount';
+
+    function switchTab(id) {
+      document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      document.querySelectorAll('.tool-tab').forEach(b => {
+        b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+        b.classList.add('bg-slate-100', 'text-slate-600');
+      });
+      const navBtn = document.getElementById('nav-' + id);
+      if (navBtn) {
+        navBtn.classList.remove('bg-slate-100', 'text-slate-600');
+        navBtn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleDrawer() {
+      const d = document.getElementById('menuDrawer');
+      const b = document.getElementById('drawerBackdrop');
+      const isOpen = !d.classList.contains('-translate-x-full');
+      d.classList.toggle('-translate-x-full', isOpen);
+      b.classList.toggle('opacity-0', isOpen);
+      b.classList.toggle('pointer-events-none', isOpen);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => t.classList.add('opacity-0', 'pointer-events-none'), 2500);
+    }
+
+    function copyText(id) {
+      const txt = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(txt).then(() => showToast('Copied!')).catch(() => showToast('Copy failed'));
+    }
+
+    function updateCurrency() {
+      currentCurrency = document.getElementById('currencySelector').value;
+      document.querySelectorAll('.curr').forEach(e => e.textContent = currentCurrency);
+      calculateProfit('cost');
+    }
+
+    function setLoading(btnId, isLoading, text) {
+      const b = document.getElementById(btnId);
+      if (!b) return;
+      b.disabled = isLoading;
+      if (isLoading) {
+        b.dataset.orig = b.innerHTML;
+        b.innerHTML = '<span class="inline-block animate-spin mr-1">⏳</span> ' + text;
+      } else if (b.dataset.orig) {
+        b.innerHTML = b.dataset.orig;
+      }
+    }
+
+    async function requestAI(prompt, systemInstruction, errorBoxId) {
+      const errBox = errorBoxId ? document.getElementById(errorBoxId) : null;
+      if (errBox) { errBox.textContent = ''; errBox.classList.add('hidden'); }
+
+      if (window.location.protocol === 'file:') {
+        const localMsg = "Opened from Local File (file://): Mobile browsers block relative backend requests from downloaded files. Open ResellerPilot from your deployed web link to use AI features.";
+        if (errBox) { errBox.textContent = '📱 ' + localMsg; errBox.classList.remove('hidden'); }
+        showToast('Open via Web Link');
+        throw new Error('LOCAL_FILE_PROTOCOL');
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 25000);
+
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt, systemInstruction }),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        let data = {};
+        try { data = await res.json(); } catch (e) {
+          throw new Error(`Server returned HTTP ${res.status}`);
+        }
+
+        if (!res.ok || !data.success) {
+          let detailedMsg = data.error || `Server returned HTTP ${res.status}`;
+          if (res.status === 429) {
+            detailedMsg = "Gemini Quota Exceeded (HTTP 429): Rate limit reached. Wait 30 seconds.";
+          } else if (res.status === 403 || res.status === 400) {
+            detailedMsg = `Gemini Key Error (HTTP ${res.status}): ${data.error || 'Invalid API Key'}`;
+          } else if (res.status === 500 && data.error && data.error.includes('GEMINI_API_KEY')) {
+            detailedMsg = "Server Config Error: GEMINI_API_KEY environment variable is missing on the server.";
+          }
+          throw new Error(detailedMsg);
+        }
+
+        return data.text;
+      } catch (err) {
+        clearTimeout(timeoutId);
+        let msg = err.message;
+        if (err.name === 'AbortError') {
+          msg = "Request timed out after 25s.";
+        } else if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+          msg = 'Backend Unreachable ("Failed to fetch"): Could not reach /api/generate. Ensure the server is hosted and running.';
+        }
+        if (errBox) { errBox.textContent = '⚠️ ' + msg; errBox.classList.remove('hidden'); }
+        showToast('Generation failed');
+        throw err;
+      }
+    }
+
+    async function handleAd() {
+      const name = document.getElementById('adName').value.trim();
+      const price = document.getElementById('adPrice').value.trim();
+      const platform = document.getElementById('adPlatform').value;
+      const audience = document.getElementById('adAudience').value.trim() || 'General buyers';
+      const benefits = document.getElementById('adBenefits').value.trim();
+      if (!name || !price || !benefits) return;
+
+      setLoading('btnAd', true, 'Generating with Gemini 3.8...');
+      const p = `Write an ad for: Product: ${name}, Price: ${currentCurrency}${price}, Platform: ${platform}, Target: ${audience}, Benefits: ${benefits}`;
+      try {
+        const text = await requestAI(p, 'You are an elite ecommerce advertising copywriter.', 'adError');
+        document.getElementById('adTag').innerText = `${platform} Ad Generated`;
+        document.getElementById('adOut').innerText = text;
+        document.getElementById('adCard').classList.remove('hidden');
+        showToast('Ad ready!');
+      } catch (e) {} finally { setLoading('btnAd', false); }
+    }
+
+    async function handleDesc() {
+      const title = document.getElementById('descTitle').value.trim();
+      const niche = document.getElementById('descNiche').value;
+      const tone = document.getElementById('descTone').value;
+      const specs = document.getElementById('descSpecs').value.trim();
+      const problem = document.getElementById('descProblem').value.trim();
+      if (!title || !problem) return;
+
+      setLoading('btnDesc', true, 'Generating with Gemini 3.8...');
+      const p = `Write an ecommerce product description for: Product: ${title}, Niche: ${niche}, Tone: ${tone}, Problem Solved: ${problem}, Specs: ${specs}`;
+      try {
+        const text = await requestAI(p, 'You are a conversion product description writer.', 'descError');
+        document.getElementById('descOut').innerText = text;
+        document.getElementById('descCard').classList.remove('hidden');
+        showToast('Description ready!');
+      } catch (e) {} finally { setLoading('btnDesc', false); }
+    }
+
+    function setScen(scen) {
+      currentScenario = scen;
+      document.querySelectorAll('.scen-btn').forEach(b => {
+        b.classList.remove('border-blue-600', 'bg-blue-50', 'text-blue-900');
+        b.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
+      });
+      const active = document.getElementById('scen-' + scen);
+      if (active) {
+        active.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
+        active.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-900');
+      }
+    }
+
+    async function handleReply() {
+      const prod = document.getElementById('replyProd').value.trim();
+      const bonus = document.getElementById('replyBonus').value.trim();
+      const msg = document.getElementById('replyMsg').value.trim();
+      if (!prod) return showToast('Please enter product name');
+
+      setLoading('btnReply', true, 'Generating with Gemini 3.8...');
+      const p = `Write a persuasive WhatsApp reply for: Scenario: ${currentScenario}, Product: ${prod}, Bonus/Perk: ${bonus}, Customer Message: "${msg}"`;
+      try {
+        const text = await requestAI(p, 'You are a retail sales objection closer.', 'replyError');
+        document.getElementById('replyTag').innerText = `Reply for: ${currentScenario.toUpperCase()}`;
+        document.getElementById('replyOut').innerText = text;
+        document.getElementById('replyCard').classList.remove('hidden');
+        showToast('Reply script ready!');
+      } catch (e) {} finally { setLoading('btnReply', false); }
+    }
+
+    function calculateProfit(source) {
+      const cost = parseFloat(document.getElementById('calcCost').value) || 0;
+      const waybill = parseFloat(document.getElementById('calcWaybill').value) || 0;
+      const pack = parseFloat(document.getElementById('calcPack').value) || 0;
+      const ad = parseFloat(document.getElementById('calcAd').value) || 0;
+      const feePct = (parseFloat(document.getElementById('calcFee').value) || 0) / 100;
+      const desiredProfit = parseFloat(document.getElementById('calcProfit').value) || 0;
+      const customPriceInput = document.getElementById('calcCustomPrice');
+
+      const totalBaseCost = cost + waybill + pack + ad;
+      let sellingPrice = 0;
+      let netProfit = 0;
+
+      if (source === 'custom' && parseFloat(customPriceInput.value) > 0) {
+        sellingPrice = parseFloat(customPriceInput.value);
+        netProfit = sellingPrice - totalBaseCost - (sellingPrice * feePct);
+      } else {
+        sellingPrice = feePct < 1 ? (totalBaseCost + desiredProfit) / (1 - feePct) : totalBaseCost + desiredProfit;
+        netProfit = desiredProfit;
+        if (source !== 'custom' && sellingPrice > 0) {
+          customPriceInput.value = sellingPrice.toFixed(2);
+        }
+      }
+
+      const margin = sellingPrice > 0 ? (netProfit / sellingPrice) * 100 : 0;
+      document.getElementById('resTotal').innerText = currentCurrency + totalBaseCost.toFixed(2);
+      document.getElementById('resPrice').innerText = currentCurrency + sellingPrice.toFixed(2);
+      document.getElementById('resNet').innerText = currentCurrency + netProfit.toFixed(2);
+      document.getElementById('resMargin').innerText = margin.toFixed(1) + '%';
+
+      const v = document.getElementById('profitVerdict');
+      if (netProfit < 0) {
+        v.className = 'text-xs mt-2 font-medium text-rose-600';
+        v.innerText = `🚨 Operating at a loss of ${currentCurrency}${Math.abs(netProfit).toFixed(2)} per item.`;
+      } else if (margin >= 30) {
+        v.className = 'text-xs mt-2 font-medium text-emerald-700';
+        v.innerText = `🌟 Healthy margin (${margin.toFixed(1)}%).`;
+      } else {
+        v.className = 'text-xs mt-2 font-medium text-amber-700';
+        v.innerText = `⚠️ Slim margin. Account for delivery return charges.`;
+      }
+    }
+
+    function resetCalculator() {
+      ['calcCost', 'calcWaybill', 'calcPack', 'calcAd', 'calcProfit', 'calcCustomPrice'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('calcFee').value = '2.0';
+      document.getElementById('profitVerdict').innerText = '';
+      calculateProfit('cost');
+    }
+
+    async function handleSocial() {
+      const prod = document.getElementById('socialProd').value.trim();
+      const goal = document.getElementById('socialGoal').value;
+      const angle = document.getElementById('socialAngle').value.trim();
+      if (!prod) return;
+
+      setLoading('btnSocial', true, 'Generating with Gemini 3.8...');
+      const p = `Create a viral social media kit for: Product: ${prod}, Goal: ${goal}, Angle: ${angle}. Include 3 hooks, 1 carousel concept, 1 story poll, and 10 hashtags.`;
+      try {
+        const text = await requestAI(p, 'You are an ecommerce viral social media strategist.', 'socialError');
+        document.getElementById('socialOut').innerText = text;
+        document.getElementById('socialCard').classList.remove('hidden');
+        showToast('Social pack ready!');
+      } catch (e) {} finally { setLoading('btnSocial', false); }
+    }
+
+    async function handlePromo() {
+      const prod = document.getElementById('promoProd').value.trim();
+      const type = document.getElementById('promoType').value;
+      const normalPrice = document.getElementById('promoNormPrice').value.trim();
+      const dealPrice = document.getElementById('promoDealPrice').value.trim();
+      const perk = document.getElementById('promoPerk').value.trim();
+      if (!prod || !dealPrice) return;
+
+      setLoading('btnPromo', true, 'Generating with Gemini 3.8...');
+      const p = `Create a 3-phase promotional campaign plan for: Product: ${prod}, Format: ${type}, Normal Price: ${currentCurrency}${normalPrice}, Deal: ${currentCurrency}${dealPrice}, Bonus: ${perk}`;
+      try {
+        const text = await requestAI(p, 'You are a retail promotion launch strategist.', 'promoError');
+        document.getElementById('promoOut').innerText = text;
+        document.getElementById('promoCard').classList.remove('hidden');
+        showToast('Promo plan ready!');
+      } catch (e) {} finally { setLoading('btnPromo', false); }
+    }
+
+    async function checkHealth() {
+      const dot = document.getElementById('aiHealthDot');
+      const text = document.getElementById('aiHealthText');
+      const banner = document.getElementById('connectionBanner');
+      const bannerText = document.getElementById('bannerText');
+
+      if (window.location.protocol === 'file:') {
+        dot.className = 'w-2 h-2 rounded-full bg-amber-400';
+        text.textContent = 'Local File';
+        banner.className = 'mb-4 p-3.5 rounded-xl border border-amber-300 bg-amber-50 text-amber-900 text-xs space-y-1.5';
+        bannerText.innerHTML = "<strong>Opened as Local File:</strong> Offline Profit Calculator is 100% active. To use AI generation on your Android phone, open this app from your deployed web link (e.g. Render).";
+        banner.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/health');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (data.status === 'ready') {
+          dot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+          text.textContent = 'Gemini 3.8';
+          banner.classList.add('hidden');
+        } else {
+          dot.className = 'w-2 h-2 rounded-full bg-amber-400';
+          text.textContent = 'Key Missing';
+          banner.className = 'mb-4 p-3.5 rounded-xl border border-amber-300 bg-amber-50 text-amber-900 text-xs space-y-1.5';
+          bannerText.innerHTML = "<strong>Server Config Alert:</strong> Backend is running, but <code>GEMINI_API_KEY</code> environment variable is missing on your host.";
+          banner.classList.remove('hidden');
+        }
+      } catch (e) {
+        dot.className = 'w-2 h-2 rounded-full bg-slate-400';
+        text.textContent = 'Offline Calc';
+        banner.className = 'mb-4 p-3.5 rounded-xl border border-slate-300 bg-slate-100 text-slate-800 text-xs space-y-1.5';
+        bannerText.innerHTML = "<strong>Backend Unreachable:</strong> Could not connect to <code>/api/health</code>. Ensure the server is deployed and running.";
+        banner.classList.remove('hidden');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      checkHealth();
+      calculateProfit('cost');
+    });
+  </script>
+</body>
+</html>
