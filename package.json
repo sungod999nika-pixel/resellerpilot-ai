@@ -1,0 +1,9 @@
+{
+  "name": "resellerpilot-ai",
+  "version": "3.0.0",
+  "description": "Smart Reseller & Dropshipping Hub powered by Gemini 3.8 Flash",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
