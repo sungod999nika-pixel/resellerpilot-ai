@@ -300,59 +300,72 @@
     }
 
     async function requestAI(prompt, systemInstruction, errorBoxId) {
-      const errBox = errorBoxId ? document.getElementById(errorBoxId) : null;
-      if (errBox) { errBox.textContent = ''; errBox.classList.add('hidden'); }
+  const errBox = errorBoxId ? document.getElementById(errorBoxId) : null;
 
-      if (window.location.protocol === 'file:') {
-        const localMsg = "Opened from Local File (file://): Mobile browsers block relative backend requests from downloaded files. Open ResellerPilot from your deployed web link to use AI features.";
-        if (errBox) { errBox.textContent = '📱 ' + localMsg; errBox.classList.remove('hidden'); }
-        showToast('Open via Web Link');
-        throw new Error('LOCAL_FILE_PROTOCOL');
-      }
+  if (errBox) {
+    errBox.textContent = '';
+    errBox.classList.add('hidden');
+  }
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 25000);
-
-      try {
-        const res = await fetch('/api/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt, systemInstruction }),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        let data = {};
-        try { data = await res.json(); } catch (e) {
-          throw new Error(`Server returned HTTP ${res.status}`);
-        }
-
-        if (!res.ok || !data.success) {
-          let detailedMsg = data.error || `Server returned HTTP ${res.status}`;
-          if (res.status === 429) {
-            detailedMsg = "Gemini Quota Exceeded (HTTP 429): Rate limit reached. Wait 30 seconds.";
-          } else if (res.status === 403 || res.status === 400) {
-            detailedMsg = `Gemini Key Error (HTTP ${res.status}): ${data.error || 'Invalid API Key'}`;
-          } else if (res.status === 500 && data.error && data.error.includes('GEMINI_API_KEY')) {
-            detailedMsg = "Server Config Error: GEMINI_API_KEY environment variable is missing on the server.";
-          }
-          throw new Error(detailedMsg);
-        }
-
-        return data.text;
-      } catch (err) {
-        clearTimeout(timeoutId);
-        let msg = err.message;
-        if (err.name === 'AbortError') {
-          msg = "Request timed out after 25s.";
-        } else if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
-          msg = 'Backend Unreachable ("Failed to fetch"): Could not reach /api/generate. Ensure the server is hosted and running.';
-        }
-        if (errBox) { errBox.textContent = '⚠️ ' + msg; errBox.classList.remove('hidden'); }
-        showToast('Generation failed');
-        throw err;
-      }
+  if (window.location.protocol === 'file:') {
+    const msg = 'Open ResellerPilot using your deployed website link, not a downloaded HTML file.';
+    if (errBox) {
+      errBox.textContent = '📱 ' + msg;
+      errBox.classList.remove('hidden');
     }
+    throw new Error('LOCAL_FILE_PROTOCOL');
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, systemInstruction }),
+      signal: controller.signal
+    });
+
+    let data;
+
+    try {
+      data = await res.json();
+    } catch (e) {
+      throw new Error(`Server returned an unreadable response (HTTP ${res.status}).`);
+    }
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || `Server returned HTTP ${res.status}.`);
+    }
+
+    if (!data.text) {
+      throw new Error('The AI server returned an empty response. Please try again.');
+    }
+
+    return data.text;
+
+  } catch (err) {
+    let msg = err.message || 'An unknown error occurred.';
+
+    if (err.name === 'AbortError') {
+      msg = 'Request timed out after 60 seconds. Please try again.';
+    } else if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+      msg = 'Cannot reach the backend. Check whether your Render server is running.';
+    }
+
+    if (errBox) {
+      errBox.textContent = '⚠️ ' + msg;
+      errBox.classList.remove('hidden');
+    }
+
+    showToast('Generation failed');
+    throw err;
+
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
 
     async function handleAd() {
       const name = document.getElementById('adName').value.trim();
