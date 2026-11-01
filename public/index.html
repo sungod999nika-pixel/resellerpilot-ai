@@ -13,7 +13,206 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
+  </style>  /* =================================
+   RESELLERPILOT AI - PREMIUM DESIGN
+================================= */
+
+:root {
+  --brand: #3156d9;
+  --brand-dark: #203da8;
+  --brand-light: #edf2ff;
+  --navy: #111c35;
+  --surface: #ffffff;
+  --background: #f5f7fc;
+  --border: #e5eaf3;
+  --text: #18243b;
+  --muted: #718096;
+}
+
+body {
+  background: var(--background) !important;
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+/* Header */
+header {
+  background: rgba(255,255,255,0.96) !important;
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: 0 3px 18px rgba(20,35,70,0.04) !important;
+}
+
+/* Brand logo */
+header .bg-blue-600 {
+  background: linear-gradient(135deg,#3156d9,#647ff0) !important;
+  border-radius: 11px !important;
+  box-shadow: 0 4px 12px rgba(49,86,217,0.25);
+}
+
+/* Navigation */
+nav {
+  background: rgba(255,255,255,0.97) !important;
+}
+
+.tool-tab {
+  padding: 10px 15px !important;
+  border-radius: 10px !important;
+  font-size: 12px !important;
+  transition: all .2s ease !important;
+}
+
+.tool-tab:hover {
+  transform: translateY(-1px);
+}
+
+/* Main content */
+main {
+  max-width: 850px !important;
+  padding-top: 28px !important;
+}
+
+/* Feature cards */
+.tab-content > div:first-child {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  box-shadow: 0 8px 30px rgba(25,40,75,0.045) !important;
+}
+
+/* Feature headings */
+.tab-content h2 {
+  color: var(--navy) !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.5px;
+  margin-bottom: 5px;
+}
+
+/* Labels */
+label {
+  color: #46536b !important;
+  font-size: 11px !important;
+  letter-spacing: .5px;
+}
+
+/* Input fields */
+input:not([type="checkbox"]),
+textarea,
+select {
+  border: 1px solid #dce3ef !important;
+  border-radius: 11px !important;
+  padding: 12px !important;
+  background: #fbfcff !important;
+  color: var(--text) !important;
+  transition: border .2s, box-shadow .2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand) !important;
+  box-shadow: 0 0 0 3px rgba(49,86,217,.10) !important;
+  outline: none !important;
+}
+
+/* Main action buttons */
+form button[type="submit"],
+#btnReply {
+  border-radius: 12px !important;
+  padding: 14px !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+  letter-spacing: .1px;
+  box-shadow: 0 5px 13px rgba(49,86,217,.15);
+  transition: all .2s ease;
+}
+
+form button[type="submit"]:hover,
+#btnReply:hover {
+  transform: translateY(-1px);
+  filter: brightness(.96);
+}
+
+button:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+/* Generated result cards */
+.tab-content > div[id$="Card"] {
+  border-radius: 18px !important;
+  box-shadow: 0 8px 25px rgba(25,40,75,.05) !important;
+}
+
+.tab-content > div[id$="Card"] > div:last-child {
+  line-height: 1.8;
+  font-size: 14px;
+  padding: 17px !important;
+  border-radius: 12px !important;
+  background: #f7f9fd !important;
+}
+
+/* Calculator result boxes */
+#feature-calc .grid > div {
+  border-radius: 12px !important;
+  padding: 13px !important;
+}
+
+/* Drawer */
+#menuDrawer {
+  border-radius: 0 18px 18px 0;
+}
+
+#menuDrawer button:hover {
+  background: var(--brand-light) !important;
+  color: var(--brand-dark) !important;
+}
+
+/* Health badge */
+#aiHealthBadge {
+  border-radius: 20px !important;
+  padding: 7px 11px !important;
+}
+
+/* Copy buttons */
+button[onclick^="copyText"] {
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-weight: 700 !important;
+}
+
+/* Smooth transitions */
+.tab-content {
+  animation: fadeIn .25s ease;
+}
+
+/* Mobile improvements */
+@media (max-width: 640px) {
+  main {
+    padding: 16px 13px 45px !important;
+  }
+
+  .tab-content > div:first-child {
+    padding: 19px !important;
+    border-radius: 17px !important;
+  }
+
+  .tab-content h2 {
+    font-size: 17px !important;
+  }
+
+  .tool-tab {
+    padding: 9px 12px !important;
+  }
+
+  input:not([type="checkbox"]),
+  textarea,
+  select {
+    font-size: 14px !important;
+  }
+}
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
