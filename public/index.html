@@ -574,7 +574,7 @@ button[onclick^="copyText"] {
       const benefits = document.getElementById('adBenefits').value.trim();
       if (!name || !price || !benefits) return;
 
-      setLoading('btnAd', true, 'Generating with Gemini 3.8...');
+      setLoading('btnAd', true, 'Creating your content...');
       const p = `Write an ad for: Product: ${name}, Price: ${currentCurrency}${price}, Platform: ${platform}, Target: ${audience}, Benefits: ${benefits}`;
       try {
         const text = await requestAI(p, 'You are an elite ecommerce advertising copywriter.', 'adError');
@@ -593,7 +593,7 @@ button[onclick^="copyText"] {
       const problem = document.getElementById('descProblem').value.trim();
       if (!title || !problem) return;
 
-      setLoading('btnDesc', true, 'Generating with Gemini 3.8...');
+      setLoading('btnDesc', true, 'Creating your content...');
       const p = `Write an ecommerce product description for: Product: ${title}, Niche: ${niche}, Tone: ${tone}, Problem Solved: ${problem}, Specs: ${specs}`;
       try {
         const text = await requestAI(p, 'You are a conversion product description writer.', 'descError');
@@ -622,7 +622,7 @@ button[onclick^="copyText"] {
       const msg = document.getElementById('replyMsg').value.trim();
       if (!prod) return showToast('Please enter product name');
 
-      setLoading('btnReply', true, 'Generating with Gemini 3.8...');
+      setLoading('btnReply', true, 'Creating your content...');
       const p = `Write a persuasive WhatsApp reply for: Scenario: ${currentScenario}, Product: ${prod}, Bonus/Perk: ${bonus}, Customer Message: "${msg}"`;
       try {
         const text = await requestAI(p, 'You are a retail sales objection closer.', 'replyError');
@@ -691,7 +691,7 @@ button[onclick^="copyText"] {
       const angle = document.getElementById('socialAngle').value.trim();
       if (!prod) return;
 
-      setLoading('btnSocial', true, 'Generating with Gemini 3.8...');
+      setLoading('btnSocial', true, 'Creating your content...');
       const p = `Create a viral social media kit for: Product: ${prod}, Goal: ${goal}, Angle: ${angle}. Include 3 hooks, 1 carousel concept, 1 story poll, and 10 hashtags.`;
       try {
         const text = await requestAI(p, 'You are an ecommerce viral social media strategist.', 'socialError');
@@ -709,7 +709,7 @@ button[onclick^="copyText"] {
       const perk = document.getElementById('promoPerk').value.trim();
       if (!prod || !dealPrice) return;
 
-      setLoading('btnPromo', true, 'Generating with Gemini 3.8...');
+      setLoading('btnPromo', true, 'Creating your content...');
       const p = `Create a 3-phase promotional campaign plan for: Product: ${prod}, Format: ${type}, Normal Price: ${currentCurrency}${normalPrice}, Deal: ${currentCurrency}${dealPrice}, Bonus: ${perk}`;
       try {
         const text = await requestAI(p, 'You are a retail promotion launch strategist.', 'promoError');
@@ -740,7 +740,7 @@ button[onclick^="copyText"] {
         const data = await res.json();
         if (data.status === 'ready') {
           dot.className = 'w-2 h-2 rounded-full bg-emerald-500';
-          text.textContent = 'Gemini 3.8';
+          text.textContent = data.model || 'AI Connected';
           banner.classList.add('hidden');
         } else {
           dot.className = 'w-2 h-2 rounded-full bg-amber-400';
