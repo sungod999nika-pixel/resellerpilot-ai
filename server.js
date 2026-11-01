@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY =
   process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
 
-const ACTIVE_MODEL = 'gemini-3.8-flash';
+const ACTIVE_MODEL = 'gemini-3.5-flash-lite';
 
 const MIME_TYPES = {
   '.html': 'text/html',
