@@ -697,20 +697,30 @@ select {
     let currentScenario = 'discount';
 
     function switchTab(id) {
-      document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
-      const target = document.getElementById(id);
-      if (target) target.classList.add('active');
-      document.querySelectorAll('.tool-tab').forEach(b => {
-        b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
-        b.classList.add('bg-slate-100', 'text-slate-600');
-      });
-      const navBtn = document.getElementById('nav-' + id);
-      if (navBtn) {
-        navBtn.classList.remove('bg-slate-100', 'text-slate-600');
-        navBtn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+  document.querySelectorAll('.tab-content').forEach(e => {
+    e.classList.remove('active');
+  });
+
+  const dashboard = document.getElementById('dashboardHome');
+  if (dashboard) dashboard.classList.remove('active');
+
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('.tool-tab').forEach(b => {
+    b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+    b.classList.add('bg-slate-100', 'text-slate-600');
+  });
+
+  const navBtn = document.getElementById('nav-' + id);
+
+  if (navBtn) {
+    navBtn.classList.remove('bg-slate-100', 'text-slate-600');
+    navBtn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
     function toggleDrawer() {
       const d = document.getElementById('menuDrawer');
