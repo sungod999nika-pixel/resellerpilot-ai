@@ -539,8 +539,91 @@ select {
       </div>
     </div>
 
+    <!-- RESELLERPILOT AI HOME DASHBOARD -->
+<section id="dashboardHome" class="tab-content active space-y-6">
+
+  <div class="rounded-3xl p-6 md:p-8 text-white shadow-xl"
+       style="background:linear-gradient(135deg,#14213d,#3156d9,#647ff0);">
+
+    <p class="text-blue-100 text-sm font-semibold mb-3">
+      YOUR BUSINESS GROWTH HUB
+    </p>
+
+    <h2 class="text-3xl font-black mb-3">
+      Welcome to ResellerPilot AI
+    </h2>
+
+    <p class="text-blue-100 text-sm leading-relaxed mb-5">
+      Create better ads, attract customers, manage profits and grow your
+      reselling business with AI-powered tools.
+    </p>
+
+    <div class="inline-flex items-center gap-2 bg-white/15 px-4 py-2 rounded-xl text-sm font-bold">
+      <i data-lucide="sparkles" class="w-4 h-4"></i>
+      Your Smart Business Assistant
+    </div>
+
+  </div>
+
+  <div>
+    <h2 class="text-xl font-extrabold text-slate-900 mb-1">
+      Your Business Tools
+    </h2>
+    <p class="text-sm text-slate-500">
+      Choose a tool to get started.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+    <button onclick="switchTab('feature-ads')"
+      class="text-left bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <i data-lucide="megaphone" class="w-7 h-7 text-blue-600 mb-3"></i>
+      <h3 class="font-extrabold text-slate-900">AI Ad Generator</h3>
+      <p class="text-sm text-slate-500 mt-1">Create persuasive product advertisements.</p>
+    </button>
+
+    <button onclick="switchTab('feature-desc')"
+      class="text-left bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <i data-lucide="file-text" class="w-7 h-7 text-indigo-600 mb-3"></i>
+      <h3 class="font-extrabold text-slate-900">Product Descriptions</h3>
+      <p class="text-sm text-slate-500 mt-1">Write attractive product descriptions.</p>
+    </button>
+
+    <button onclick="switchTab('feature-reply')"
+      class="text-left bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <i data-lucide="message-circle" class="w-7 h-7 text-green-600 mb-3"></i>
+      <h3 class="font-extrabold text-slate-900">Customer Reply Assistant</h3>
+      <p class="text-sm text-slate-500 mt-1">Respond to customers and handle objections.</p>
+    </button>
+
+    <button onclick="switchTab('feature-calc')"
+      class="text-left bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <i data-lucide="calculator" class="w-7 h-7 text-orange-600 mb-3"></i>
+      <h3 class="font-extrabold text-slate-900">Profit Calculator</h3>
+      <p class="text-sm text-slate-500 mt-1">Calculate costs, selling prices and profit.</p>
+    </button>
+
+    <button onclick="switchTab('feature-social')"
+      class="text-left bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <i data-lucide="share-2" class="w-7 h-7 text-pink-600 mb-3"></i>
+      <h3 class="font-extrabold text-slate-900">Social Media Generator</h3>
+      <p class="text-sm text-slate-500 mt-1">Create content for your social platforms.</p>
+    </button>
+
+    <button onclick="switchTab('feature-promo')"
+      class="text-left bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+      <i data-lucide="calendar-days" class="w-7 h-7 text-purple-600 mb-3"></i>
+      <h3 class="font-extrabold text-slate-900">Promotion Planner</h3>
+      <p class="text-sm text-slate-500 mt-1">Plan promotions for your products.</p>
+    </button>
+
+  </div>
+
+</section>
+<!-- END HOME DASHBOARD -->
     <!-- 1. AI Advertisement Generator -->
-    <section id="feature-ads" class="tab-content active space-y-4">
+    <section id="feature-ads" class="tab-content space-y-4">
       <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
         <h2 class="text-base font-bold text-slate-900">1. AI Advertisement Generator</h2>
         <form onsubmit="event.preventDefault(); handleAd();" class="space-y-3 mt-3">
