@@ -815,6 +815,143 @@ select {
       </div>
     </section>
 
+    <!-- 7. SALES & ORDER MANAGER -->
+<section id="feature-orders" class="tab-content space-y-4">
+
+  <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+    <h2 class="text-xl font-black text-slate-900">Sales & Order Manager</h2>
+    <p class="text-sm text-slate-500 mt-1">
+      Record customer orders, track payments and monitor your profits.
+    </p>
+  </div>
+
+  <!-- Order Statistics -->
+  <div class="grid grid-cols-2 gap-3">
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Total Orders</p>
+      <h3 id="orderTotal" class="text-xl font-black mt-1">0</h3>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Delivered Revenue</p>
+      <h3 id="orderRevenue" class="text-lg font-black mt-1">₦0.00</h3>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Delivered Profit</p>
+      <h3 id="orderProfit" class="text-lg font-black text-green-600 mt-1">₦0.00</h3>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Products Delivered</p>
+      <h3 id="orderProducts" class="text-xl font-black mt-1">0</h3>
+    </div>
+
+  </div>
+
+  <!-- Add New Order -->
+  <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+
+    <h3 class="font-black text-slate-900 mb-4">Add New Order</h3>
+
+    <form id="orderForm" class="space-y-3">
+
+      <div>
+        <label class="block text-xs font-bold mb-1">Customer Name</label>
+        <input id="orderCustomer" required
+          class="w-full border border-slate-300 rounded-xl p-3 text-sm"
+          placeholder="Enter customer name">
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold mb-1">Customer Phone</label>
+        <input id="orderPhone"
+          class="w-full border border-slate-300 rounded-xl p-3 text-sm"
+          placeholder="Enter phone number">
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold mb-1">Product Name</label>
+        <input id="orderProduct" required
+          class="w-full border border-slate-300 rounded-xl p-3 text-sm"
+          placeholder="e.g. Wireless earbuds">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+
+        <div>
+          <label class="block text-xs font-bold mb-1">Quantity</label>
+          <input id="orderQuantity" type="number" min="1" value="1" required
+            class="w-full border border-slate-300 rounded-xl p-3 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold mb-1">Cost Per Item (₦)</label>
+          <input id="orderCost" type="number" min="0" step="0.01" required
+            class="w-full border border-slate-300 rounded-xl p-3 text-sm"
+            placeholder="0">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold mb-1">Selling Price Per Item (₦)</label>
+          <input id="orderPrice" type="number" min="0" step="0.01" required
+            class="w-full border border-slate-300 rounded-xl p-3 text-sm"
+            placeholder="0">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold mb-1">Extra Expenses (₦)</label>
+          <input id="orderExpenses" type="number" min="0" step="0.01" value="0"
+            class="w-full border border-slate-300 rounded-xl p-3 text-sm">
+        </div>
+
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold mb-1">Payment Status</label>
+        <select id="orderPayment"
+          class="w-full border border-slate-300 rounded-xl p-3 text-sm">
+          <option value="Pending">Pending</option>
+          <option value="Paid">Paid</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold mb-1">Delivery Status</label>
+        <select id="orderStatus"
+          class="w-full border border-slate-300 rounded-xl p-3 text-sm">
+          <option value="Processing">Processing</option>
+          <option value="Dispatched">Dispatched</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <button type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl p-3">
+        + Save Order
+      </button>
+
+      <p class="text-xs text-slate-500">
+        Profit and revenue statistics count only orders marked Paid and Delivered.
+      </p>
+
+    </form>
+  </div>
+
+  <!-- Saved Orders -->
+  <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+
+    <h3 class="font-black text-slate-900 mb-3">Your Orders</h3>
+
+    <div id="orderList" class="space-y-3">
+      <p class="text-sm text-slate-500">No orders recorded yet.</p>
+    </div>
+
+  </div>
+
+</section>
   </main>
 
   <script>
