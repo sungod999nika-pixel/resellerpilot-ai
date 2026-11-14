@@ -1507,6 +1507,7 @@ let ordersChart = null;
   if (dashboardProfit) dashboardProfit.textContent = orderMoney(profit);
   if (dashboardOrders) dashboardOrders.textContent = resellerOrders.length;
   if (dashboardProducts) dashboardProducts.textContent = products;
+  updateSalesCharts();
   list.innerHTML = '';
 
   if (resellerOrders.length === 0) {
