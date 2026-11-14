@@ -1473,6 +1473,7 @@ document.getElementById('orderForm').addEventListener(
 
     const order = {
       id: Date.now().toString(),
+      createdAt: new Date().toISOString(),
       customer: document.getElementById('orderCustomer').value.trim(),
       phone: document.getElementById('orderPhone').value.trim(),
       product: document.getElementById('orderProduct').value.trim(),
