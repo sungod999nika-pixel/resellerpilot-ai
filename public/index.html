@@ -1351,6 +1351,118 @@ function orderMoney(amount) {
 function refreshOrders() {
   let salesChart = null;
 let ordersChart = null;
+  function updateSalesCharts() {
+  if (typeof Chart === 'undefined') return;
+
+  const salesCanvas = document.getElementById('salesChart');
+  const ordersCanvas = document.getElementById('ordersChart');
+
+  if (!salesCanvas || !ordersCanvas) return;
+
+  const dates = [];
+
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    dates.push(date);
+  }
+
+  const labels = dates.map(date =>
+    date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short'
+    })
+  );
+
+  const dateKeys = dates.map(date => {
+    const d = new Date(date);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  });
+
+  const revenueData = Array(7).fill(0);
+  const profitData = Array(7).fill(0);
+  const ordersData = Array(7).fill(0);
+
+  resellerOrders.forEach(order => {
+    if (!order.createdAt) return;
+
+    const date = new Date(order.createdAt);
+    if (isNaN(date.getTime())) return;
+
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+    const index = dateKeys.indexOf(key);
+    if (index === -1) return;
+
+    ordersData[index]++;
+
+    if (order.status === 'Delivered' && order.payment === 'Paid') {
+      revenueData[index] += order.price * order.quantity;
+
+      profitData[index] +=
+        (order.price * order.quantity) -
+        (order.cost * order.quantity) -
+        order.expenses;
+    }
+  });
+
+  if (salesChart) {
+    salesChart.data.labels = labels;
+    salesChart.data.datasets[0].data = revenueData;
+    salesChart.data.datasets[1].data = profitData;
+    salesChart.update();
+  } else {
+    salesChart = new Chart(salesCanvas, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Revenue (₦)',
+            data: revenueData,
+            borderWidth: 3,
+            tension: 0.4
+          },
+          {
+            label: 'Profit (₦)',
+            data: profitData,
+            borderWidth: 3,
+            tension: 0.4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  }
+
+  if (ordersChart) {
+    ordersChart.data.labels = labels;
+    ordersChart.data.datasets[0].data = ordersData;
+    ordersChart.update();
+  } else {
+    ordersChart = new Chart(ordersCanvas, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Orders',
+          data: ordersData
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, ticks: { precision: 0 } }
+        }
+      }
+    });
+  }
+}
   const list = document.getElementById('orderList');
 
   if (!list) return;
