@@ -989,6 +989,65 @@ select {
   </div>
 
 </section>
+    <!-- 8. CUSTOMER MANAGEMENT -->
+<section id="feature-customers" class="tab-content space-y-5">
+
+  <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+    <h2 class="text-xl font-black text-slate-900">
+      Customer Management
+    </h2>
+    <p class="text-sm text-slate-500 mt-1">
+      Understand your customers, track purchases and build lasting relationships.
+    </p>
+  </div>
+
+  <!-- Customer Statistics -->
+  <div class="grid grid-cols-2 gap-3">
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Total Customers</p>
+      <h3 id="crmTotalCustomers" class="text-xl font-black mt-1">0</h3>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Repeat Customers</p>
+      <h3 id="crmRepeatCustomers" class="text-xl font-black text-green-600 mt-1">0</h3>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Customer Revenue</p>
+      <h3 id="crmRevenue" class="text-lg font-black mt-1">₦0.00</h3>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200">
+      <p class="text-xs text-slate-500">Unpaid Orders</p>
+      <h3 id="crmUnpaid" class="text-xl font-black text-orange-600 mt-1">0</h3>
+    </div>
+
+  </div>
+
+  <!-- Search Customers -->
+  <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+
+    <h3 class="font-black text-slate-900 mb-3">
+      Your Customers
+    </h3>
+
+    <input
+      id="crmSearch"
+      type="search"
+      placeholder="Search by customer name or phone..."
+      class="w-full border border-slate-300 rounded-xl p-3 text-sm mb-4">
+
+    <div id="crmCustomerList" class="space-y-3">
+      <p class="text-sm text-slate-500">
+        No customers recorded yet.
+      </p>
+    </div>
+
+  </div>
+
+</section>
   </main>
 
   <script>
