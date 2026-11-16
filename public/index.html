@@ -1675,17 +1675,27 @@ function refreshCustomers() {
 
   const customers = Array.from(customerMap.values());
 
-  document.getElementById('crmTotalCustomers').textContent =
-    customers.length;
+  const totalEl = document.getElementById('crmTotalCustomers');
+const repeatEl = document.getElementById('crmRepeatCustomers');
+const revenueEl = document.getElementById('crmRevenue');
+const unpaidEl = document.getElementById('crmUnpaid');
 
-  document.getElementById('crmRepeatCustomers').textContent =
+if (totalEl) totalEl.textContent = customers.length;
+
+if (repeatEl) {
+  repeatEl.textContent =
     customers.filter(c => c.orders.length > 1).length;
+}
 
-  document.getElementById('crmRevenue').textContent =
+if (revenueEl) {
+  revenueEl.textContent =
     orderMoney(customers.reduce((sum, c) => sum + c.revenue, 0));
+}
 
-  document.getElementById('crmUnpaid').textContent =
+if (unpaidEl) {
+  unpaidEl.textContent =
     customers.reduce((sum, c) => sum + c.unpaid, 0);
+}
 
   const list = document.getElementById('crmCustomerList');
   const search = document.getElementById('crmSearch');
