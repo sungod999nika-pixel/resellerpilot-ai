@@ -1529,7 +1529,123 @@ function saveOrders() {
     JSON.stringify(resellerOrders)
   );
 }
+// DATA BACKUP & RESTORE
 
+const exportBackupBtn = document.getElementById('exportBackupBtn');
+const importBackupBtn = document.getElementById('importBackupBtn');
+const backupFileInput = document.getElementById('backupFileInput');
+const backupStatus = document.getElementById('backupStatus');
+
+// EXPORT BACKUP
+if (exportBackupBtn) {
+  exportBackupBtn.addEventListener('click', function () {
+    try {
+      const backupData = {
+        app: 'ResellerPilot AI',
+        version: 1,
+        backupDate: new Date().toISOString(),
+        orders: resellerOrders
+      };
+
+      const blob = new Blob(
+        [JSON.stringify(backupData, null, 2)],
+        { type: 'application/json' }
+      );
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = 'ResellerPilot-Backup.json';
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      URL.revokeObjectURL(url);
+
+      if (backupStatus) {
+        backupStatus.textContent = 'Backup downloaded successfully!';
+        backupStatus.className = 'text-sm mt-3 text-green-600 font-semibold';
+      }
+
+    } catch (error) {
+      if (backupStatus) {
+        backupStatus.textContent = 'Backup failed. Please try again.';
+        backupStatus.className = 'text-sm mt-3 text-red-600';
+      }
+    }
+  });
+}
+
+// OPEN BACKUP FILE
+if (importBackupBtn && backupFileInput) {
+  importBackupBtn.addEventListener('click', function () {
+    backupFileInput.click();
+  });
+
+  // RESTORE BACKUP
+  backupFileInput.addEventListener('change', async function () {
+    const file = backupFileInput.files[0];
+
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const backupData = JSON.parse(text);
+
+      if (
+        backupData.app !== 'ResellerPilot AI' ||
+        !Array.isArray(backupData.orders)
+      ) {
+        throw new Error('Invalid backup file');
+      }
+
+      const confirmRestore = confirm(
+        'Restoring this backup will replace your current saved orders. Continue?'
+      );
+
+      if (!confirmRestore) {
+        backupFileInput.value = '';
+        return;
+      }
+
+      resellerOrders = backupData.orders;
+
+      saveOrders();
+
+      if (typeof refreshOrders === 'function') {
+        refreshOrders();
+      }
+
+      if (typeof refreshCustomers === 'function') {
+        refreshCustomers();
+      }
+
+      if (backupStatus) {
+        backupStatus.textContent = 'Your backup was restored successfully!';
+        backupStatus.className = 'text-sm mt-3 text-green-600 font-semibold';
+      }
+
+    } catch (error) {
+      if (backupStatus) {
+        backupStatus.textContent = 'Invalid backup file. Please select a valid ResellerPilot backup.';
+        backupStatus.className = 'text-sm mt-3 text-red-600';
+      }
+    }
+
+    backupFileInput.value = '';
+  });
+}
+
+Important
+
+- Export downloads your saved orders as a JSON file.
+- Restore replaces current orders, but only after confirmation.
+- Customer records refresh from the restored orders.
+- Keep your backup file somewhere safe.
+
+Save and commit the code, then tell me when you're done. We'll test both buttons carefully.
 function orderMoney(amount) {
   return new Intl.NumberFormat('en-NG', {
     style: 'currency',
