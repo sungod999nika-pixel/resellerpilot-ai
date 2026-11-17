@@ -780,7 +780,56 @@ select {
 
 </div>
 
-  </div></section>
+    </div>
+
+  <!-- DATA BACKUP & RESTORE -->
+  <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm mt-6">
+
+    <div class="flex items-center gap-3 mb-3">
+      <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-6 h-6 text-blue-600"></i>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-black text-slate-900">
+          Data Backup & Restore
+        </h2>
+        <p class="text-sm text-slate-500">
+          Protect your business records.
+        </p>
+      </div>
+    </div>
+
+    <p class="text-sm text-slate-600 mb-4">
+      Download your saved orders or restore them from a previous backup.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+      <button type="button" id="exportBackupBtn"
+        class="bg-blue-600 text-white font-bold rounded-xl p-3 hover:bg-blue-700 transition">
+        <i data-lucide="download" class="w-4 h-4 inline mr-2"></i>
+        Export Backup
+      </button>
+
+      <button type="button" id="importBackupBtn"
+        class="bg-slate-100 text-slate-800 font-bold rounded-xl p-3 hover:bg-slate-200 transition">
+        <i data-lucide="upload" class="w-4 h-4 inline mr-2"></i>
+        Restore Backup
+      </button>
+
+    </div>
+
+    <input type="file" id="backupFileInput"
+      accept=".json,application/json" class="hidden">
+
+    <p id="backupStatus" class="text-sm mt-3 text-slate-500">
+      Your backup will contain your saved order records.
+    </p>
+
+  </div>
+
+</section>
 <!-- END HOME DASHBOARD -->
     <!-- 1. AI Advertisement Generator -->
     <section id="feature-ads" class="tab-content space-y-4">
