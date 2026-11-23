@@ -409,7 +409,19 @@ select {
 
 <!-- SUPABASE DATABASE LIBRARY -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // SUPABASE CONNECTION
+  const SUPABASE_URL = 'https://sdrvjycjmddcwczupzidb.supabase.co';
 
+  const SUPABASE_KEY = 'sb_publishable_t43KtJLf3dSl2oGA_OjmEg_m-KAnXyM';
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  console.log('ResellerPilot AI: Supabase initialized');
+</script>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 
