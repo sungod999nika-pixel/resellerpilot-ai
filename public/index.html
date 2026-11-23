@@ -422,6 +422,18 @@ select {
 
   console.log('ResellerPilot AI: Supabase initialized');
 </script>
+  <style>
+  body:not(.rp-authenticated) > header,
+  body:not(.rp-authenticated) > #drawerBackdrop,
+  body:not(.rp-authenticated) > #menuDrawer,
+  body:not(.rp-authenticated) > main {
+    display: none !important;
+  }
+
+  body.rp-authenticated #authScreen {
+    display: none !important;
+  }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 <!-- RESELLERPILOT LOGIN SCREEN -->
