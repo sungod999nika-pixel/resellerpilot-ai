@@ -2156,7 +2156,76 @@ document.getElementById('orderList').addEventListener(
     }
   }
 );
+// RESELLERPILOT SUPABASE AUTHENTICATION
 
+const authMessage = document.getElementById('authMessage');
+const loginBtn = document.getElementById('loginBtn');
+const signupBtn = document.getElementById('signupBtn');
+
+loginBtn.addEventListener('click', async () => {
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+
+  authMessage.textContent = 'Signing in...';
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    authMessage.textContent = error.message;
+    return;
+  }
+
+  document.body.classList.add('rp-authenticated');
+  authMessage.textContent = 'Welcome back!';
+  refreshOrders();
+});
+
+signupBtn.addEventListener('click', async () => {
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+
+  authMessage.textContent = 'Creating your account...';
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) {
+    authMessage.textContent = error.message;
+    return;
+  }
+
+  if (data.session) {
+    document.body.classList.add('rp-authenticated');
+    refreshOrders();
+  } else {
+    authMessage.textContent =
+      'Account created! Check your email to confirm your account, then sign in.';
+  }
+});
+
+// CHECK EXISTING LOGIN SESSION
+async function checkAuthSession() {
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    authMessage.textContent = error.message;
+    return;
+  }
+
+  if (data.session) {
+    document.body.classList.add('rp-authenticated');
+    refreshOrders();
+  } else {
+    document.body.classList.remove('rp-authenticated');
+  }
+}
+
+checkAuthSession();
 refreshOrders();
     window.addEventListener('DOMContentLoaded', () => {
       checkHealth();
