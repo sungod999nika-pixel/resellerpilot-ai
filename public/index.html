@@ -2187,7 +2187,17 @@ signupBtn.addEventListener('click', async () => {
   const email = document.getElementById('authEmail').value.trim();
   const password = document.getElementById('authPassword').value;
 
-  authMessage.textContent = 'Creating your account...';
+if (!email || !password) {
+  authMessage.textContent = 'Please enter your email and password.';
+  return;
+}
+
+if (!document.getElementById('authEmail').checkValidity()) {
+  authMessage.textContent = 'Please enter a valid email address.';
+  return;
+}
+
+authMessage.textContent = 'Creating your account...';
 
   const { data, error } = await supabaseClient.auth.signUp({
     email,
