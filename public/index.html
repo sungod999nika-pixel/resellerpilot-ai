@@ -2208,38 +2208,62 @@ loginBtn.addEventListener('click', async () => {
 });
 
 signupBtn.addEventListener('click', async () => {
+  const fullName = document.getElementById('authFullName').value.trim();
+  const username = document.getElementById('authUsername').value.trim();
+  const phone = document.getElementById('authPhone').value.trim();
+  const country = document.getElementById('authCountry').value.trim();
+  const business = document.getElementById('authBusiness').value.trim();
+
   const email = document.getElementById('authEmail').value.trim();
   const password = document.getElementById('authPassword').value;
+  const confirmPassword = document.getElementById('authConfirmPassword').value;
 
-if (!email || !password) {
-  authMessage.textContent = 'Please enter your email and password.';
-  return;
-}
+  if (!fullName || !username || !phone || !country || !email || !password || !confirmPassword) {
+    authMessage.textContent = 'Please complete all required fields.';
+    return;
+  }
 
-if (!document.getElementById('authEmail').checkValidity()) {
-  authMessage.textContent = 'Please enter a valid email address.';
-  return;
-}
+  if (password.length < 6) {
+    authMessage.textContent = 'Password must contain at least 6 characters.';
+    return;
+  }
 
-authMessage.textContent = 'Creating your account...';
+  if (password !== confirmPassword) {
+    authMessage.textContent = 'Your passwords do not match.';
+    return;
+  }
+
+  if (!document.getElementById('authEmail').checkValidity()) {
+    authMessage.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  authMessage.textContent = 'Creating your account...';
+  signupBtn.disabled = true;
 
   const { data, error } = await supabaseClient.auth.signUp({
     email,
-    password
+    password,
+    options: {
+      data: {
+        full_name: fullName,
+        username: username,
+        phone_number: phone,
+        country: country,
+        business_name: business
+      }
+    }
   });
+
+  signupBtn.disabled = false;
 
   if (error) {
     authMessage.textContent = error.message;
     return;
   }
 
-  if (data.session) {
-    document.body.classList.add('rp-authenticated');
-    refreshOrders();
-  } else {
-    authMessage.textContent =
-      'Account created! Check your email to confirm your account, then sign in.';
-  }
+  authMessage.textContent =
+    'Account created successfully! Please check your email to verify your account, then sign in.';
 });
 
 // CHECK EXISTING LOGIN SESSION
