@@ -437,6 +437,7 @@ select {
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
 <!-- RESELLERPILOT LOGIN SCREEN -->
+<!-- RESELLERPILOT LOGIN AND REGISTRATION SCREEN -->
 <section id="authScreen" class="min-h-screen flex items-center justify-center p-5 bg-slate-50">
   <div class="w-full max-w-md bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
 
@@ -445,23 +446,46 @@ select {
         RP
       </div>
       <h1 class="text-2xl font-black text-slate-900">ResellerPilot AI</h1>
-      <p class="text-sm text-slate-500 mt-2">Sign in or create your free account</p>
+      <p class="text-sm text-slate-500 mt-2">Your Smart Business Growth Engine</p>
     </div>
 
     <form id="authForm" class="space-y-4">
-      <div>
-        <label class="block text-sm font-semibold mb-1">Email address</label>
-        <input id="authEmail" type="email" required
-          class="w-full border border-slate-300 rounded-xl p-3 outline-none focus:border-blue-500"
-          placeholder="Enter your email">
+
+      <div id="registrationFields" class="space-y-3">
+
+        <input id="authFullName" type="text"
+          placeholder="Full Name"
+          class="w-full border rounded-xl p-3">
+
+        <input id="authUsername" type="text"
+          placeholder="Choose a Username"
+          class="w-full border rounded-xl p-3">
+
+        <input id="authPhone" type="tel"
+          placeholder="Phone Number"
+          class="w-full border rounded-xl p-3">
+
+        <input id="authCountry" type="text"
+          placeholder="Country"
+          class="w-full border rounded-xl p-3">
+
+        <input id="authBusiness" type="text"
+          placeholder="Business Name (Optional)"
+          class="w-full border rounded-xl p-3">
+
+        <input id="authConfirmPassword" type="password"
+          placeholder="Confirm Password"
+          class="w-full border rounded-xl p-3">
+
       </div>
 
-      <div>
-        <label class="block text-sm font-semibold mb-1">Password</label>
-        <input id="authPassword" type="password" required minlength="6"
-          class="w-full border border-slate-300 rounded-xl p-3 outline-none focus:border-blue-500"
-          placeholder="At least 6 characters">
-      </div>
+      <input id="authEmail" type="email" required
+        placeholder="Email Address"
+        class="w-full border rounded-xl p-3">
+
+      <input id="authPassword" type="password" required minlength="6"
+        placeholder="Password"
+        class="w-full border rounded-xl p-3">
 
       <button id="loginBtn" type="button"
         class="w-full bg-blue-600 text-white font-bold rounded-xl p-3">
@@ -474,8 +498,8 @@ select {
       </button>
 
       <p id="authMessage" class="text-sm text-center text-slate-600"></p>
-    </form>
 
+    </form>
   </div>
 </section>
   <!-- Top App Bar -->
